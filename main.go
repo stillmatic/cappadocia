@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 
 	"github.com/alecthomas/kong"
+	"github.com/alecthomas/repr"
 	"github.com/fsnotify/fsnotify"
 )
 
@@ -61,6 +62,7 @@ func main() {
 
 				if event.Op&fsnotify.Write == fsnotify.Write || event.Op&fsnotify.Create == fsnotify.Create {
 					cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...)
+					repr.Print(cmd)
 					cmd.Stdout = os.Stdout
 					cmd.Stderr = os.Stderr
 					err := cmd.Run()
